@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,14 +14,27 @@ namespace mvcBLOG.Controllers
 
         public ActionResult Index()
         {
-            return View(db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList());
+            var temp = db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList();
+            //if (temp.Count > 5)
+            //{
+            //    temp.RemoveRange(5, temp.Count - 5);
+            //}
+            return View(temp);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+            var temp = db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList();
+            if (temp.Count <= 5)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                temp.RemoveRange(0, 5);
+                return View(temp);
+            }
         }
 
         public ActionResult Contact()

@@ -1,7 +1,46 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model IEnumerable<mvcBLOG.Models.BlogPost>
 
-<p>Use this area to provide additional information.</p>
+<header class="intro-header" style="background-image: url('../../img//about-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Archives</h1>
+                    <hr class="small">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            @foreach (var blog in Model)
+            {
+
+                <div class="post-preview">
+                    <a href=@Url.Action("Details", "BlogPosts", new { Slug = blog.Slug}, null)>
+                        <h2 class="post-title">
+                            @blog.Title
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @blog.Abstract
+                        </h3>
+                    </a>
+                    <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("dd/MM/yyyy")</p>
+                </div>
+                <hr />
+            }
+
+
+
+            <!-- Pager -->
+                <ul class="pager">
+
+                </ul>
+        </div>
+    </div>
+
+</div>
+
+<hr>

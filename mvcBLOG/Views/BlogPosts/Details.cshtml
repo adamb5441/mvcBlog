@@ -10,10 +10,10 @@
                 <div class="post-heading">
                     <h1>@Html.Raw(Model.Title)</h1>
                     <h2 class="subheading">@Html.Raw(Model.Abstract)</h2>
-                    <span class="meta">Posted by Adam on @Html.Raw(Model.Created.ToString("dd/MM/yyyy"))</span>
+                    <span class="meta">Posted by Adam on @Html.Raw(Model.Created.ToString("MM/dd/yyyy"))</span>
                         @if (Model.Updated != null)
                         {
-                        <span class="meta">Updated on @Html.Raw(Model.Updated.Value.ToString("dd/MM/yyyy"))</span>
+                        <span class="meta">Updated on @Html.Raw(Model.Updated.Value.ToString("MM/dd/yyyy"))</span>
                         } 
                     
                 </div>

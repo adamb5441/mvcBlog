@@ -34,7 +34,7 @@ namespace mvcBLOG.Controllers
         public ActionResult Index()
         {
             //insert a list of blogpostes into the view then returns it
-            return View(db.BlogPosts.ToList());
+            return View(db.BlogPosts.OrderByDescending(B => B.Created).ToList());
         }
 
         // GET: BlogPosts/Details/5

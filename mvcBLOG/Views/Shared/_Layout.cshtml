@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
     <title>Legend's Blog</title>
 
     <!-- Bootstrap Core CSS -->
@@ -42,7 +42,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-   
+
                 <a class="navbar-brand" href=@Url.Action("Index","Home")>The Legend's Blog</a>
             </div>
 
@@ -58,66 +58,78 @@
                     <li>
                         <a href=@Url.Action("Index","Home")>Home</a>
                     </li>
-                    <li>
-                        <a href=@Url.Action("Login","Account")>Login</a>
-                    </li>
-                    <li>
-                        <a href=@Url.Action("Register","Account")>Register</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    @RenderBody()
-
- 
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
+                    @if (!Request.IsAuthenticated)
+                    {
                         <li>
-                            <a href="https://www.linkedin.com/in/adamb54/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
+                            <a href=@Url.Action("Login", "Account")>Login</a>
                         </li>
                         <li>
-                            <a href="https://github.com/adamb5441" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
+                            <a href=@Url.Action("Register", "Account")>Register</a>
                         </li>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
+                        {
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        </li>
+                        }
+                    }
                     </ul>
                 </div>
+                <!-- /.navbar-collapse -->
             </div>
-        </div>
-    </footer>
+            <!-- /.container -->
+        </nav>
 
-    <!-- jQuery -->
-    @*<script src="vendor/jquery/jquery.min.js"></script>*@
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <!-- Contact Form JavaScript -->
-    <script src="~/Scripts/jqBootstrapValidation.js"></script>
-    <script src="~/Scripts/contact_me.js"></script>
-    <!-- Theme JavaScript -->
-    <script src="~/Scripts/clean-blog.min.js"></script>
+        @RenderBody()
 
 
 
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/adamb54/" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/adamb5441" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-    @RenderSection("scripts", false)
-</body>
+        <!-- jQuery -->
+        @*<script src="vendor/jquery/jquery.min.js"></script>*@
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <!-- Contact Form JavaScript -->
+        <script src="~/Scripts/jqBootstrapValidation.js"></script>
+        <script src="~/Scripts/contact_me.js"></script>
+        <!-- Theme JavaScript -->
+        <script src="~/Scripts/clean-blog.min.js"></script>
+
+
+
+
+        @RenderSection("scripts", false)
+    </body>
 
 </html>

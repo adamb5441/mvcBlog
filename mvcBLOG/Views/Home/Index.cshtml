@@ -28,7 +28,7 @@
                         @blog.Abstract
                     </h3>
                 </a>
-                <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("dd/MM/yyyy")</p>
+                <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("MM/dd/yyyy")</p>
             </div>
             <hr />
             }
@@ -37,10 +37,13 @@
 
             <!-- Pager -->
             <ul class="pager">
-                @*<li class="next">
-                    <a href="#">Older Posts &rarr;</a>
-                </li>*@
-            </ul>
+                @*@if (mvcBLOG.Models.BlogPost.Count() > 5)
+                {
+                 <li class="next">
+                    <a href=@Url.Action("About", "Home")>Older Posts &rarr;</a>
+                </li>
+                }
+            </ul>*@
         </div>
     </div>
 
