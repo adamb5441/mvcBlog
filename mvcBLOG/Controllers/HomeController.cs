@@ -13,7 +13,7 @@ namespace mvcBLOG.Controllers
 
         public ActionResult Index()
         {
-            return View(db.BlogPosts.ToList());
+            return View(db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList());
         }
 
         public ActionResult About()

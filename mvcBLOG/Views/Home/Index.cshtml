@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<mvcBLOG.Models.BlogPost>
 
-
-<header class="intro-header" style="background-image: url('../../img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('../../img/himalaya-evening.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1>Clean Blog</h1>
+                    <h1>The Legend's Blog</h1>
                     <hr class="small">
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    <span class="subheading">A programing and life blog</span>
                 </div>
             </div>
         </div>
@@ -29,7 +28,7 @@
                         @blog.Abstract
                     </h3>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Adam</a> @blog.Created.ToString("dd/MM/yyyy")</p>
+                <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("dd/MM/yyyy")</p>
             </div>
             <hr />
             }
@@ -38,9 +37,9 @@
 
             <!-- Pager -->
             <ul class="pager">
-                <li class="next">
+                @*<li class="next">
                     <a href="#">Older Posts &rarr;</a>
-                </li>
+                </li>*@
             </ul>
         </div>
     </div>
