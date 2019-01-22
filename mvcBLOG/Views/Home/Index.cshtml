@@ -13,12 +13,13 @@
         </div>
     </div>
 </header>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            @foreach (var blog in Model)
+            @foreach (var blog in Model.Take(5))
             {
-
+            //check for data
             <div class="post-preview">
                 <a href=@Url.Action("Details", "BlogPosts", new { Slug = blog.Slug}, null)>
                     <h2 class="post-title">
@@ -37,13 +38,13 @@
 
             <!-- Pager -->
             <ul class="pager">
-                @*@if (mvcBLOG.Models.BlogPost.Count() > 5)
+                @if (Model.Count() > 5)
                 {
                  <li class="next">
                     <a href=@Url.Action("About", "Home")>Older Posts &rarr;</a>
                 </li>
                 }
-            </ul>*@
+            </ul>
         </div>
     </div>
 

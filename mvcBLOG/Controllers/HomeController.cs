@@ -15,10 +15,7 @@ namespace mvcBLOG.Controllers
         public ActionResult Index()
         {
             var temp = db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList();
-            //if (temp.Count > 5)
-            //{
-            //    temp.RemoveRange(5, temp.Count - 5);
-            //}
+
             return View(temp);
         }
 

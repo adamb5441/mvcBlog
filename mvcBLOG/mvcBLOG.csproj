@@ -245,6 +245,7 @@
     <Content Include="fonts\font-awesome\scss\_screen-reader.scss" />
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\mvcBLOG20190122104048 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\clean-blog.min.js" />
     <Content Include="Scripts\contact_me.js" />
