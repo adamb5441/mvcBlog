@@ -8,6 +8,9 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
+using mvcBLOG.Helpers;
 
 namespace mvcBLOG.Controllers
 {
@@ -15,11 +18,40 @@ namespace mvcBLOG.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchstr)
         {
-            var temp = db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList();
+            ViewBag.Search = searchstr;
+            var blogList = IndexSearch(searchstr);
 
-            return View(temp);
+            var pageSize = 5;
+            var pageNumber = (page ?? 1);
+
+            //var temp = db.BlogPosts.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToList();
+            //var listPosts = db.BlogPosts.AsQueryable();
+
+            //return View(listPosts.OrderByDescending(p => p.Created).Where(x => x.Published == true).ToPagedList(pageNumber, pageSize));
+            return View(blogList.ToPagedList(pageNumber, pageSize));
+        }
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) || 
+                p.Body.Contains(searchStr) || 
+                p.Comments.Any(c => c.Body.Contains(searchStr) || 
+                c.Author.FirstName.Contains(searchStr) || 
+                c.Author.LastName.Contains(searchStr) || 
+                c.Author.DisplayName.Contains(searchStr) || 
+                c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
         }
 
         public ActionResult About()

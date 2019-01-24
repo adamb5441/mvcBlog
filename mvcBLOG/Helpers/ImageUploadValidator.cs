@@ -1,4 +1,5 @@
 ﻿using Microsoft.SqlServer.Server;
+using mvcBLOG.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +9,8 @@ using System.Web;
 
 namespace mvcBLOG.Helpers
 {
-public static class ImageUploadValidator
+
+    public static class ImageUploadValidator
     {
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {

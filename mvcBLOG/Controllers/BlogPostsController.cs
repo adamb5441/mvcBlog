@@ -10,8 +10,10 @@ using mvcBLOG.Models;
 using mvcBLOG.Helpers;
 using System.IO;
 
+
 namespace mvcBLOG.Controllers
 {
+
     public class BlogPostsController : Controller
     {
         //declare a db context to interact with

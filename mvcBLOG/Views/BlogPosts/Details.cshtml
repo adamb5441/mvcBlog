@@ -41,12 +41,22 @@
 </article>
 
 <h2>Comments</h2>
-@foreach (var comment in Model.Comments)
-{
-    <p>created on  @comment.Author"</p>
-    <p>@comment.Body</p>
-}
-
+<div class="container">
+    @foreach (var comment in Model.Comments)
+    {
+    <div class="row">
+        <div class="col-md-12">
+            <p>@comment.Author.FirstName</p>
+        </div>
+    </div>
+    <hr/>
+    <div style="margin-left: 10px" class="row">
+        <div class="col-md-12">
+            <p>@comment.Body</p>
+        </div>
+    </div>
+    }
+</div>
 <hr>
 
 @if (User.Identity.IsAuthenticated)
@@ -58,9 +68,9 @@
         @Html.HiddenFor(model => model.Slug)
 
         <div class="form-group">
-            @Html.Label("Add Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Editor("CommentBody")
+            @Html.Label("Add Comment", htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextArea("CommentBody")
             </div>
             <br />
             <button type="submit" value="submit">add</button>

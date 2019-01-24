@@ -1,4 +1,9 @@
-﻿@model IEnumerable<mvcBLOG.Models.BlogPost>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<mvcBLOG.Models.BlogPost>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
 
 <header class="intro-header" style="background-image: url('../../img/himalaya-evening.jpg')">
     <div class="container">
@@ -13,38 +18,49 @@
         </div>
     </div>
 </header>
-
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+    {<div class ="controls controls-row search-row">
+        <input id ="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search">
+            <button name="searchStr" class="btn btn-success" type="submit">
+                <i class ="icon-search">
+                    </i>
+            </button>
+    </div>}
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            @foreach (var blog in Model.Take(5))
+            @foreach (var blog in Model)
             {
-            //check for data
-            <div class="post-preview">
-                <a href=@Url.Action("Details", "BlogPosts", new { Slug = blog.Slug}, null)>
-                    <h2 class="post-title">
-                        @blog.Title
-                    </h2>
-                    <h3 class="post-subtitle">
-                        @blog.Abstract
-                    </h3>
-                </a>
-                <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("MM/dd/yyyy")</p>
-            </div>
-            <hr />
+                //check for data
+                <div class="post-preview">
+                    <a href=@Url.Action("Details", "BlogPosts", new { Slug = blog.Slug}, null)>
+                        <h2 class="post-title">
+                            @blog.Title
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @blog.Abstract
+                        </h3>
+                    </a>
+                    <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("MM/dd/yyyy")</p>
+                </div>
+                <hr />
             }
 
 
 
             <!-- Pager -->
-            <ul class="pager">
-                @if (Model.Count() > 5)
-                {
-                 <li class="next">
-                    <a href=@Url.Action("About", "Home")>Older Posts &rarr;</a>
-                </li>
-                }
-            </ul>
+                <ul class="pager">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+
+                    @*Archive page solution*@
+                    @*@if (Model.Count() > 5)
+        {
+         <li class="next">
+            <a href=@Url.Action("About", "Home")>Older Posts &rarr;</a>
+        </li>
+        }*@
+                </ul>
         </div>
     </div>
 
