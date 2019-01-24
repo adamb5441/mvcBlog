@@ -36,9 +36,10 @@ namespace mvcBLOG.Controllers
                 return View(temp);
             }
         }
-
+        //get conntact view action 1
         public ActionResult Contact()
         {
+            //assigns the email model to model 2
             EmailModel model = new EmailModel();
             return View(model);
         }
@@ -57,7 +58,7 @@ namespace mvcBLOG.Controllers
                     model.Body = "This is a message from your blog site. The name and the conacting person is above." + model.Body;
                     var email = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
                     {
-                        Subject = "Portfolio Contact Email",
+                        Subject = "Blog Contact Email",
                         Body = string.Format(body, model.FromName, model.FromEmail, model.Body),
                         IsBodyHtml = true
                     };

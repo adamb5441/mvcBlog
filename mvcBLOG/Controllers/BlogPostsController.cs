@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using mvcBLOG.Models;
 using mvcBLOG.Helpers;
+using System.IO;
 
 namespace mvcBLOG.Controllers
 {
@@ -75,8 +76,10 @@ namespace mvcBLOG.Controllers
         //checks the information is coming from the right view
         [ValidateAntiForgeryToken]
         //create post exepts info create view
-        public ActionResult Create([Bind(Include = "Title,Body,Abstract,MediaUrl,Published")] BlogPost blogPost)
+        public ActionResult Create([Bind(Include = "Title,Body,Abstract,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
+
+
             var slug = StringUtilities.URLFriendly(blogPost.Title);
             if (String.IsNullOrWhiteSpace(slug))
             {
@@ -91,6 +94,14 @@ namespace mvcBLOG.Controllers
             //checks against the model for correct data
             if (ModelState.IsValid)
             {
+
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var filename = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), filename));
+                    blogPost.MediaUrl = "/Uploads/" + filename;
+                }
+
                 blogPost.Slug = slug;
                 //add current time to blog post
                 blogPost.Created = DateTimeOffset.Now;
@@ -135,8 +146,14 @@ namespace mvcBLOG.Controllers
         //checks info is coming from the right place
         [ValidateAntiForgeryToken]
         //edit action with body request
-        public ActionResult Edit([Bind(Include = "Id,Slug,Created,Updated,Title,Body,Abstract,MediaUrl,Published")] BlogPost blogPost)
+        public ActionResult Edit([Bind(Include = "Id,Slug,Created,Updated,Title,Body,Abstract,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
+            if (ImageUploadValidator.IsWebFriendlyImage(image))
+            {
+                var filename = Path.GetFileName(image.FileName);
+                image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), filename));
+                blogPost.MediaUrl = "/Uploads/"+ filename;
+            }
             var slug = StringUtilities.URLFriendly(blogPost.Title);
             if (String.IsNullOrWhiteSpace(slug))
             {

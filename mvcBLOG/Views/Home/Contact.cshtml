@@ -1,11 +1,14 @@
-﻿@model mvcBLOG.Models.EmailModel
-
+﻿//declares the modal
+@model mvcBLOG.Models.EmailModel
+//declare form
 @using (Html.BeginForm())
 {@Html.AntiForgeryToken()
 <header style="background-color: black; display: block; height: 60px"></header>
 <h4>Send me a message.</h4>
 <hr />
+    //box for error message
 @Html.ValidationSummary("", new { @class = "text-danger" })
+    //declare form group
 <div class="form-group">
     @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">

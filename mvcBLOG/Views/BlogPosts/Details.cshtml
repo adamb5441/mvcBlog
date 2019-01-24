@@ -3,7 +3,14 @@
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('../../img/post-bg.jpg')">
+@{
+    var bgimage = "../../img/home-bg.jpg";
+}
+@if (Model.MediaUrl != null)
+{
+    bgimage = Model.MediaUrl;
+}
+<header class="intro-header" style="background-image:url('@bgimage')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -11,11 +18,11 @@
                     <h1>@Html.Raw(Model.Title)</h1>
                     <h2 class="subheading">@Html.Raw(Model.Abstract)</h2>
                     <span class="meta">Posted by Adam on @Html.Raw(Model.Created.ToString("MM/dd/yyyy"))</span>
-                        @if (Model.Updated != null)
-                        {
+                    @if (Model.Updated != null)
+                    {
                         <span class="meta">Updated on @Html.Raw(Model.Updated.Value.ToString("MM/dd/yyyy"))</span>
-                        } 
-                    
+                    }
+
                 </div>
             </div>
         </div>
@@ -33,4 +40,31 @@
     </div>
 </article>
 
+<h2>Comments</h2>
+@foreach (var comment in Model.Comments)
+{
+    <p>created on  @comment.Author"</p>
+    <p>@comment.Body</p>
+}
+
 <hr>
+
+@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "Form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Slug)
+
+        <div class="form-group">
+            @Html.Label("Add Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("CommentBody")
+            </div>
+            <br />
+            <button type="submit" value="submit">add</button>
+        </div>
+    }
+}
+@Html.ActionLink("Back to index", "Index", "Home")
