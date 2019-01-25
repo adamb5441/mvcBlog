@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 Web.config
 Private.config
+Startup.Auth.cs
