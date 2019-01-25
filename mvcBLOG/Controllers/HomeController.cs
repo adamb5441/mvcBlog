@@ -14,6 +14,7 @@ using mvcBLOG.Helpers;
 
 namespace mvcBLOG.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

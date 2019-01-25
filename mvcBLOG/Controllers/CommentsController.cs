@@ -11,6 +11,7 @@ using mvcBLOG.Models;
 
 namespace mvcBLOG.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

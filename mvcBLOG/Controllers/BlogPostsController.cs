@@ -13,18 +13,19 @@ using System.IO;
 
 namespace mvcBLOG.Controllers
 {
-
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         //declare a db context to interact with
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Details(string Slug)
+        public ActionResult Details(string Slug, bool allcomments = false)
         {
             if (String.IsNullOrWhiteSpace(Slug))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.AllComments = allcomments;
             BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
             if (blogPost == null)
             {
