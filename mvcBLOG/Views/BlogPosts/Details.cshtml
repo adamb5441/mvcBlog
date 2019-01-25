@@ -40,25 +40,7 @@
     </div>
 </article>
 
-<h2>Comments</h2>
-<div class="container">
-    @foreach (var comment in Model.Comments)
-    {
-    <div class="row">
-        <div class="col-md-12">
-            <p>@comment.Author.FirstName</p>
-        </div>
-    </div>
-    <hr/>
-    <div style="margin-left: 10px" class="row">
-        <div class="col-md-12">
-            <p>@comment.Body</p>
-        </div>
-    </div>
-    }
-</div>
-<hr>
-
+<h2 style="display: flex; justify-content: center;">Comments</h2>
 @if (User.Identity.IsAuthenticated)
 {
     using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "Form-horizontal", role = "form" }))
@@ -67,14 +49,68 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Slug)
 
-        <div class="form-group">
-            @Html.Label("Add Comment", htmlAttributes: new { @class = "control-label" })
-            <div>
-                @Html.TextArea("CommentBody")
+        <div style="display: flex; justify-content: center; flex-direction:column; align-items: center" class="form-group">
+            <h3>@Html.Label("Add Comment", htmlAttributes: new { @class = "control-label" })</h3>
+            <div style="display: flex; align-items: center">
+                @Html.TextArea("CommentBody", new { @class = "comment", placeholder = "Add a comment", id = "txtarea" })
+
+
+            </div>
+            <div style="display: flex; justify-content: flex-end; width: 100vh">
+                <button class="btn btn-default" id="cancel">Cancel</button>
+                <button class="btn btn-primary" type="submit" value="submit">add</button>
             </div>
             <br />
-            <button type="submit" value="submit">add</button>
+
         </div>
     }
 }
-@Html.ActionLink("Back to index", "Index", "Home")
+<div class="container">
+    @foreach (var comment in Model.Comments.OrderByDescending(B => B.Created))
+    {
+        <div class="row">
+            <div class="col-md-12" style="display: flex">
+                <div style="margin: 5px">@comment.Author.FirstName</div>
+                @{
+                    TimeSpan age = DateTimeOffset.Now.Subtract(comment.Created);
+                    var str = age.ToString("%d");
+                    if (str == "0")
+                    {
+                        str = "Posted today";
+                    }
+                    else
+                    {
+                        str = str + " day(s) ago";
+                    }
+                }
+                <div style="margin: 5px">@str</div>
+            </div>
+        </div>
+        <div style="margin-left: 10px" class="row">
+            <div class="col-md-12">
+                <p>@comment.Body</p>
+            </div>
+        </div>
+        <hr />
+    }
+</div>
+<hr>
+
+<style>
+    .comment {
+        resize: none;
+        overflow: visible;
+        width: 100vh;
+        height: 10vh
+    }
+</style>
+
+
+@section scripts{
+    <script>
+        $(".comment").autogrow();
+        $("#cancel").click(() => {
+            $("#txtarea").val("")
+        })
+    </script>}
+

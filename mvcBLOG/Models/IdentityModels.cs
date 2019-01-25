@@ -10,8 +10,11 @@ namespace mvcBLOG.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [require]
         public string FirstName { get; set; }
+        [require]
         public string LastName { get; set; }
+        [require]
         public string DisplayName { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }

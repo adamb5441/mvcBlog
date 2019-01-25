@@ -153,7 +153,7 @@ namespace mvcBLOG.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, DisplayName = model.DisplayName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -165,12 +165,12 @@ namespace mvcBLOG.Controllers
                      var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    var from = model.Email;
+                    var from = "blog<blog@gmail.com>";
                     var emailto = model.Email;
                     var email = new MailMessage(from, emailto)
                     {
                         Subject = "Confirm email",
-                        Body = "Please register by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                        Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
                         IsBodyHtml = true
                     };
 

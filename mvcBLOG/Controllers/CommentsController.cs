@@ -19,7 +19,7 @@ namespace mvcBLOG.Controllers
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Author).Include(c => c.BlogPost);
-            return View(comments.ToList());
+            return View(comments.OrderByDescending(B => B.Created).ToList());
         }
 
         // GET: Comments/Details/5
