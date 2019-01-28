@@ -18,13 +18,13 @@ namespace mvcBLOG.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Comments
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Author).Include(c => c.BlogPost);
             return View(comments.OrderByDescending(B => B.Created).ToList());
         }
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,7 +39,7 @@ namespace mvcBLOG.Controllers
             }
             return View(comment);
         }
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         // GET: Comments/Create
         public ActionResult Create()
         {
@@ -71,7 +71,7 @@ namespace mvcBLOG.Controllers
             return RedirectToAction("Details", "BlogPosts", new { slug = slug});
             
         }
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         // GET: Comments/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -92,7 +92,7 @@ namespace mvcBLOG.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,BlogPostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
@@ -108,7 +108,7 @@ namespace mvcBLOG.Controllers
             ViewBag.BlogPostId = new SelectList(db.BlogPosts, "Id", "Title", comment.BlogPostId);
             return View(comment);
         }
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -123,7 +123,7 @@ namespace mvcBLOG.Controllers
             }
             return View(comment);
         }
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = "Moderator, Admin")]
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
