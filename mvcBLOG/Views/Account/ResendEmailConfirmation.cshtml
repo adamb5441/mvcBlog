@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Forgot your password?";
 }
-
+<header style="background-color: black; display: block; height: 60px"></header>
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("ResendEmailConfirmation", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

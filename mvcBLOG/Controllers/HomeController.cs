@@ -31,7 +31,7 @@ namespace mvcBLOG.Controllers
             //var listPosts = db.BlogPosts.AsQueryable();
 
             //return View(listPosts.OrderByDescending(p => p.Created).Where(x => x.Published == true).ToPagedList(pageNumber, pageSize));
-            return View(blogList.ToPagedList(pageNumber, pageSize));
+            return View(blogList.OrderByDescending(B => B.Created).Where(x => x.Published == true).ToPagedList(pageNumber, pageSize));
         }
 
         public IQueryable<BlogPost> IndexSearch(string searchStr)

@@ -11,18 +11,20 @@ using mvcBLOG.Models;
 
 namespace mvcBLOG.Controllers
 {
+   
     [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Comments
+        [Authorize(Roles = "Moderator")]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Author).Include(c => c.BlogPost);
             return View(comments.OrderByDescending(B => B.Created).ToList());
         }
-
+        [Authorize(Roles = "Moderator")]
         // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,7 +39,7 @@ namespace mvcBLOG.Controllers
             }
             return View(comment);
         }
-
+        [Authorize(Roles = "Moderator")]
         // GET: Comments/Create
         public ActionResult Create()
         {
@@ -69,7 +71,7 @@ namespace mvcBLOG.Controllers
             return RedirectToAction("Details", "BlogPosts", new { slug = slug});
             
         }
-
+        [Authorize(Roles = "Moderator")]
         // GET: Comments/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -90,12 +92,14 @@ namespace mvcBLOG.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,BlogPostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Updated = DateTimeOffset.Now;
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -104,7 +108,7 @@ namespace mvcBLOG.Controllers
             ViewBag.BlogPostId = new SelectList(db.BlogPosts, "Id", "Title", comment.BlogPostId);
             return View(comment);
         }
-
+        [Authorize(Roles = "Moderator")]
         // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -119,7 +123,7 @@ namespace mvcBLOG.Controllers
             }
             return View(comment);
         }
-
+        [Authorize(Roles = "Moderator")]
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

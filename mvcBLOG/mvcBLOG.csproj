@@ -542,6 +542,7 @@
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
     <Content Include="Private.config" />
     <None Include="Properties\PublishProfiles\mvcBLOG20190122104048 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\TheLegendsBlog - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\clean-blog.min.js" />
     <Content Include="Scripts\contact_me.js" />

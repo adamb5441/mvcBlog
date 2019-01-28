@@ -124,9 +124,12 @@
             }
 
         </div>
+        @if (Model.Comments.Count > 5)
+        {
         <div style="display: flex; justify-content: center">
             <a id="showcom" class="btn btn-primary" >all comment</a>
         </div>
+        }
 <hr>
 
 <style>

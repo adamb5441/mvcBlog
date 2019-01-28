@@ -13,19 +13,22 @@
                     <h1>The Legend's Blog</h1>
                     <hr class="small">
                     <span class="subheading">A programing and life blog</span>
+
                 </div>
             </div>
         </div>
     </div>
 </header>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
-    {<div class ="controls controls-row search-row">
-        <input id ="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search">
-            <button name="searchStr" class="btn btn-success" type="submit">
-                <i class ="icon-search">
-                    </i>
-            </button>
-    </div>}
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form well container" }))
+    {
+            <div style="max-width: 100px" class="input-group">
+                <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search">
+                <div class="input-group-btn">
+                    <button style="padding: 6px; padding-bottom: 7px;" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+    }
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

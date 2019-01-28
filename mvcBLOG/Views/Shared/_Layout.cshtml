@@ -55,6 +55,12 @@
                             <a href=@Url.Action("Index","BlogPosts")>Manage Content</a>
                         </li>
                     }
+                    @if (User.IsInRole("Moderator"))
+                    {
+                        <li>
+                            <a href=@Url.Action("Index","Comments")>Manage Community</a>
+                        </li>
+                    }
                     <li>
                         <a href=@Url.Action("Index","Home")>Home</a>
                     </li>
