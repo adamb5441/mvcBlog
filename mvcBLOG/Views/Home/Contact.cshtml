@@ -1,14 +1,12 @@
-﻿//declares the modal
-@model mvcBLOG.Models.EmailModel
-//declare form
+﻿@model mvcBLOG.Models.EmailModel
 @using (Html.BeginForm())
 {@Html.AntiForgeryToken()
 <header style="background-color: black; display: block; height: 60px"></header>
-<h4>Send me a message.</h4>
+<h4 style="text-align: center">Send me a message.</h4>
 <hr />
-    //box for error message
+//box for error message
 @Html.ValidationSummary("", new { @class = "text-danger" })
-    //declare form group
+//declare form group
 <div class="form-group">
     @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
@@ -16,6 +14,7 @@
         @Html.ValidationMessageFor(m => m.FromName)
     </div>
 </div>
+<br /><br />
 
 <div class="form-group">
     @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
@@ -24,13 +23,7 @@
         @Html.ValidationMessageFor(m => m.FromEmail)
     </div>
 </div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.TextBoxFor(m => m.Body, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Body)
-    </div>
-</div>
+<br /><br />
 <div class="form-group">
     @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
@@ -38,6 +31,15 @@
         @Html.ValidationMessageFor(m => m.Subject)
     </div>
 </div>
+<br /><br />
+<div class="form-group">
+    @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(m => m.Body, new { @class = "form-control", row="5" })
+        @Html.ValidationMessageFor(m => m.Body)
+    </div>
+</div>
+<br /><br />
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <input type="submit" class="btn btn-primary" value="Send" />

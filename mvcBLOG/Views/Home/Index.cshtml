@@ -31,11 +31,15 @@
     }
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="col-lg-8 col-md-10 col-md-offset-1">
             @foreach (var blog in Model)
             {
                 //check for data
-                <div class="post-preview">
+            <div class="row">
+                <div class="col-md-2" style="width: 24vh; margin-top: 30px; margin-right: 10px">
+                    <img style="width: 100%" src="@blog.MediaUrl" />
+                </div>
+                <div class="post-preview col-md-8">
                     <a href=@Url.Action("Details", "BlogPosts", new { Slug = blog.Slug}, null)>
                         <h2 class="post-title">
                             @blog.Title
@@ -46,7 +50,8 @@
                     </a>
                     <p class="post-meta">Created by <a href="#">Adam</a> @blog.Created.ToString("MM/dd/yyyy")</p>
                 </div>
-                <hr />
+            </div>
+            <hr />
             }
 
 
